@@ -1,0 +1,40 @@
+<!-- <view>
+  <!-- handleMenu为父组件和自定义组件之间通信的桥梁 -->
+  <!-- <menu class='menu' menu_list='{{menu_list}}' bind:handleMenu='handleMenu' /> -->
+<!-- </view> --> 
+
+<view class="weui-search-bar">
+  <view class="weui-search-bar__form">
+    <view class="weui-search-bar__box">
+      <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+      <input type="text" class="weui-search-bar__input" placeholder="请输入查询内容" value="{{SearchData.value}}" bindinput='SearchInput' bindconfirm="SearchConfirm" />
+      <view class="weui-icon-clear" wx:if="{{SearchData.value.length > 0}}" bindtap="SearchClear">
+        <icon type="clear" size="14"></icon>
+      </view>
+    </view>
+  </view>
+  <view class="weui-search-bar__cancel-btn" bindtap="SearchConfirm">
+    <text wx:if="{{SearchData.value.length>0}}" data-key='search'>搜索</text>
+    <text wx:else data-key='back'>返回</text>
+  </view>
+</view>
+
+<import src='/pages/posts/post-item/post-item-template.wxml' />
+<view>
+  <swiper vertical="{{false}}" indicator-dots='true' autoplay='true' interval='5000'>
+    <swiper-item>
+      <image src="/images/iqiyi.png"></image>
+    </swiper-item>
+    <swiper-item>
+      <image src="/images/vr.png"></image>
+    </swiper-item>
+    <swiper-item>
+      <image src="/images/wx.png"></image>
+    </swiper-item>
+  </swiper>
+  <block wx:for="{{posts_key}}" wx:for-item="item" wx:for-index="idx">
+    <view catchtap="onPostTap" data-postId="{{item.postId}}">
+      <template is="postItem" data="{{...item}}" />
+    </view>
+  </block>
+</view>
